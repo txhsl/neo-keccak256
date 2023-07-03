@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Keccak256Contract", "Keccak256Contract\Keccak256Contract.csproj", "{81FDA450-B82A-4B27-9E18-3EBE2E3ACE67}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Keccak256Native", "Keccak256Native\Keccak256Native.csproj", "{60856626-105F-4E75-BA87-3DD42A35E090}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{81FDA450-B82A-4B27-9E18-3EBE2E3ACE67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81FDA450-B82A-4B27-9E18-3EBE2E3ACE67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81FDA450-B82A-4B27-9E18-3EBE2E3ACE67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81FDA450-B82A-4B27-9E18-3EBE2E3ACE67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60856626-105F-4E75-BA87-3DD42A35E090}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60856626-105F-4E75-BA87-3DD42A35E090}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60856626-105F-4E75-BA87-3DD42A35E090}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60856626-105F-4E75-BA87-3DD42A35E090}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {253AB954-3035-4C07-BB3E-1EBB311D1903}
+	EndGlobalSection
+EndGlobal

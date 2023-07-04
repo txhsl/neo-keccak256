@@ -1,7 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 
 ulong[] KeccakRoundConstants =
 {
@@ -19,7 +16,6 @@ byte Dsbyte = 0x01;
 
 byte[] ComputeHash(byte[] input)
 {
-
     return Squeeze(Absorb(input));
 }
 
@@ -441,18 +437,32 @@ ulong[] KeccakF1600(ulong[] a)
 
 ulong[] XorIn(ulong[] a, byte[] buf)
 {
-    for (int i = 0; 8 * i < buf.Length; i++)
+    for (int i = 0; i * 8 < buf.Length; i++)
     {
-        a[i] ^= BitConverter.ToUInt64(buf, i * 8);
+        a[i] ^= (ulong)buf[i * 8]
+            | (ulong)buf[i * 8 + 1] << 8
+            | (ulong)buf[i * 8 + 2] << 16
+            | (ulong)buf[i * 8 + 3] << 24
+            | (ulong)buf[i * 8 + 4] << 32
+            | (ulong)buf[i * 8 + 5] << 40
+            | (ulong)buf[i * 8 + 6] << 48
+            | (ulong)buf[i * 8 + 7] << 56;
     }
     return a;
 }
 
 byte[] CopyOut(ulong[] a, byte[] buf)
 {
-    for (int i = 0; 8 * i < buf.Length; i++)
+    for (int i = 0; i * 8 < buf.Length; i++)
     {
-        BitConverter.GetBytes(a[i]).CopyTo(buf, i * 8);
+        buf[i * 8] = (byte)a[i];
+        buf[i * 8 + 1] = (byte)(a[i] >> 8);
+        buf[i * 8 + 2] = (byte)(a[i] >> 16);
+        buf[i * 8 + 3] = (byte)(a[i] >> 24);
+        buf[i * 8 + 4] = (byte)(a[i] >> 32);
+        buf[i * 8 + 5] = (byte)(a[i] >> 40);
+        buf[i * 8 + 6] = (byte)(a[i] >> 48);
+        buf[i * 8 + 7] = (byte)(a[i] >> 56);
     }
     return buf;
 }
@@ -468,3 +478,4 @@ string ToHexString(byte[] value)
 byte[] result = ComputeHash(Encoding.Default.GetBytes("Hello World."));
 
 Console.WriteLine(ToHexString(result));
+Console.WriteLine("6ac466601079053c254ab4f5750b05b5e881997738ed1d6dd3db2f8917ab8563");

@@ -2,7 +2,7 @@
 using Neo.SmartContract.Framework.Attributes;
 using System;
 using System.ComponentModel;
-using System.Linq;
+using System.Numerics;
 
 namespace Keccak256
 {
@@ -12,7 +12,7 @@ namespace Keccak256
     [ManifestExtra("Description", "This is a Keccak256")]
     public class Keccak256 : SmartContract
     {
-        private static readonly ulong[] KeccakRoundConstants =
+        private static readonly UInt64[] KeccakRoundConstants =
         {
             0x0000000000000001UL, 0x0000000000008082UL, 0x800000000000808aUL, 0x8000000080008000UL,
             0x000000000000808bUL, 0x0000000080000001UL, 0x8000000080008081UL, 0x8000000000008009UL,
@@ -28,33 +28,37 @@ namespace Keccak256
 
         public static byte[] ComputeHash(byte[] input)
         {
-
             return Squeeze(Absorb(input));
         }
 
-        private static ulong[] Absorb(byte[] input)
+        public static byte[] ComputeStringHash(string input)
+        {
+            return Squeeze(Absorb(input.ToByteArray()));
+        }
+
+        private static UInt64[] Absorb(byte[] input)
         {
             int len = input.Length;
-            ulong[] state = new ulong[25];
+            UInt64[] state = new UInt64[25];
             for (int i = 0; i < len; i += Rate)
             {
                 if (i + Rate <= len)
                 {
                     // longer than rate
-                    byte[] buf = input.Skip(i).Take(Rate).ToArray();
+                    byte[] buf = input.Range(i, Rate);
                     state = KeccakF1600(XorIn(state, buf));
                 }
                 else
                 {
                     // shorter than rate
-                    byte[] buf = input.Skip(i).Take(len - i).ToArray();
+                    byte[] buf = input.Range(i, len - 1);
                     state = KeccakF1600(XorIn(state, Pad(buf)));
                 }
             }
             return state;
         }
 
-        private static byte[] Squeeze(ulong[] state)
+        private static byte[] Squeeze(UInt64[] state)
         {
             byte[] output = new byte[FixedOutputLength];
             output = CopyOut(state, output);
@@ -65,18 +69,18 @@ namespace Keccak256
         {
             // Copy input to buf
             int len = input.Length;
-            byte[] buf = new byte[Rate];
-            input.CopyTo(buf, 0);
+            byte[] buf = new byte[Rate - len];
+            buf = input.Concat(buf);
             // dsbyte
             buf[len] = Dsbyte;
             // Final bit
             buf[Rate - 1] ^= 0x80;
             return buf;
         }
-        
-        private static ulong[] KeccakF1600(ulong[] a)
+
+        private static UInt64[] KeccakF1600(UInt64[] a)
         {
-            ulong t, bc0, bc1, bc2, bc3, bc4, d0, d1, d2, d3, d4;
+            UInt64 t, bc0, bc1, bc2, bc3, bc4, d0, d1, d2, d3, d4;
 
             for (int i = 0; i < 24; i += 4)
             {
@@ -448,20 +452,34 @@ namespace Keccak256
             return a;
         }
 
-        private static ulong[] XorIn(ulong[] a, byte[] buf)
+        private static UInt64[] XorIn(UInt64[] a, byte[] buf)
         {
-            for (int i = 0; 8 * i < buf.Length; i++)
+            for (int i = 0; i * 8 < buf.Length; i++)
             {
-                a[i] ^= BitConverter.ToUInt64(buf, i * 8);
+                a[i] ^= (UInt64)buf[i * 8]
+                    | (UInt64)buf[i * 8 + 1] << 8
+                    | (UInt64)buf[i * 8 + 2] << 16
+                    | (UInt64)buf[i * 8 + 3] << 24
+                    | (UInt64)buf[i * 8 + 4] << 32
+                    | (UInt64)buf[i * 8 + 5] << 40
+                    | (UInt64)buf[i * 8 + 6] << 48
+                    | (UInt64)buf[i * 8 + 7] << 56;
             }
             return a;
         }
 
-        private static byte[] CopyOut(ulong[] a, byte[] buf)
+        private static byte[] CopyOut(UInt64[] a, byte[] buf)
         {
-            for (int i = 0; 8 * i <= buf.Length; i++)
+            for (int i = 0; i * 8 < buf.Length; i++)
             {
-                BitConverter.GetBytes(a[i]).CopyTo(buf, i * 8);
+                buf[i * 8] = (byte)a[i];
+                buf[i * 8 + 1] = (byte)(a[i] >> 8);
+                buf[i * 8 + 2] = (byte)(a[i] >> 16);
+                buf[i * 8 + 3] = (byte)(a[i] >> 24);
+                buf[i * 8 + 4] = (byte)(a[i] >> 32);
+                buf[i * 8 + 5] = (byte)(a[i] >> 40);
+                buf[i * 8 + 6] = (byte)(a[i] >> 48);
+                buf[i * 8 + 7] = (byte)(a[i] >> 56);
             }
             return buf;
         }

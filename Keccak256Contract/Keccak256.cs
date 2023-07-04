@@ -105,11 +105,11 @@ namespace Keccak256
                 bc3 = (t << 21) | (t >> 43);
                 t = a[24] ^ d4;
                 bc4 = (t << 14) | (t >> 50);
-                a[0] = bc0 ^ (bc2 &~ bc1) ^ KeccakRoundConstants[i];
-                a[6] = bc1 ^ (bc3 &~ bc2);
-                a[12] = bc2 ^ (bc4 &~ bc3);
-                a[18] = bc3 ^ (bc0 &~ bc4);
-                a[24] = bc4 ^ (bc1 &~ bc0);
+                a[0] = bc0 ^ (bc2 & ~bc1) ^ KeccakRoundConstants[i];
+                a[6] = bc1 ^ (bc3 & ~bc2);
+                a[12] = bc2 ^ (bc4 & ~bc3);
+                a[18] = bc3 ^ (bc0 & ~bc4);
+                a[24] = bc4 ^ (bc1 & ~bc0);
 
                 t = a[10] ^ d0;
                 bc2 = (t << 3) | (t >> 61);
@@ -121,11 +121,11 @@ namespace Keccak256
                 bc0 = (t << 28) | (t >> 36);
                 t = a[9] ^ d4;
                 bc1 = (t << 20) | (t >> 44);
-                a[10] = bc0 ^ (bc2 &~ bc1);
-                a[16] = bc1 ^ (bc3 &~ bc2);
-                a[22] = bc2 ^ (bc4 &~ bc3);
-                a[3] = bc3 ^ (bc0 &~ bc4);
-                a[9] = bc4 ^ (bc1 &~ bc0);
+                a[10] = bc0 ^ (bc2 & ~bc1);
+                a[16] = bc1 ^ (bc3 & ~bc2);
+                a[22] = bc2 ^ (bc4 & ~bc3);
+                a[3] = bc3 ^ (bc0 & ~bc4);
+                a[9] = bc4 ^ (bc1 & ~bc0);
 
                 t = a[20] ^ d0;
                 bc4 = (t << 18) | (t >> 46);
@@ -137,11 +137,11 @@ namespace Keccak256
                 bc2 = (t << 25) | (t >> 39);
                 t = a[19] ^ d4;
                 bc3 = (t << 8) | (t >> 56);
-                a[20] = bc0 ^ (bc2 &~ bc1);
-                a[1] = bc1 ^ (bc3 &~ bc2);
-                a[7] = bc2 ^ (bc4 &~ bc3);
-                a[13] = bc3 ^ (bc0 &~ bc4);
-                a[19] = bc4 ^ (bc1 &~ bc0);
+                a[20] = bc0 ^ (bc2 & ~bc1);
+                a[1] = bc1 ^ (bc3 & ~bc2);
+                a[7] = bc2 ^ (bc4 & ~bc3);
+                a[13] = bc3 ^ (bc0 & ~bc4);
+                a[19] = bc4 ^ (bc1 & ~bc0);
 
                 t = a[5] ^ d0;
                 bc1 = (t << 36) | (t >> 28);
@@ -153,11 +153,11 @@ namespace Keccak256
                 bc4 = (t << 56) | (t >> 8);
                 t = a[4] ^ d4;
                 bc0 = (t << 27) | (t >> 37);
-                a[5] = bc0 ^ (bc2 &~ bc1);
-                a[11] = bc1 ^ (bc3 &~ bc2);
-                a[17] = bc2 ^ (bc4 &~ bc3);
-                a[23] = bc3 ^ (bc0 &~ bc4);
-                a[4] = bc4 ^ (bc1 &~ bc0);
+                a[5] = bc0 ^ (bc2 & ~bc1);
+                a[11] = bc1 ^ (bc3 & ~bc2);
+                a[17] = bc2 ^ (bc4 & ~bc3);
+                a[23] = bc3 ^ (bc0 & ~bc4);
+                a[4] = bc4 ^ (bc1 & ~bc0);
 
                 t = a[15] ^ d0;
                 bc3 = (t << 41) | (t >> 23);
@@ -169,12 +169,12 @@ namespace Keccak256
                 bc1 = (t << 55) | (t >> 9);
                 t = a[14] ^ d4;
                 bc2 = (t << 39) | (t >> 25);
-                a[15] = bc0 ^ (bc2 &~ bc1);
-                a[21] = bc1 ^ (bc3 &~ bc2);
-                a[2] = bc2 ^ (bc4 &~ bc3);
-                a[8] = bc3 ^ (bc0 &~ bc4);
-                a[14] = bc4 ^ (bc1 &~ bc0);
-                
+                a[15] = bc0 ^ (bc2 & ~bc1);
+                a[21] = bc1 ^ (bc3 & ~bc2);
+                a[2] = bc2 ^ (bc4 & ~bc3);
+                a[8] = bc3 ^ (bc0 & ~bc4);
+                a[14] = bc4 ^ (bc1 & ~bc0);
+
                 // Round 2
                 bc0 = a[0] ^ a[5] ^ a[10] ^ a[15] ^ a[20];
                 bc1 = a[1] ^ a[6] ^ a[11] ^ a[16] ^ a[21];
@@ -196,11 +196,11 @@ namespace Keccak256
                 bc3 = (t << 21) | (t >> 43);
                 t = a[14] ^ d4;
                 bc4 = (t << 14) | (t >> 50);
-                a[0] = bc0 ^ (bc2 &~ bc1) ^ KeccakRoundConstants[i + 1];
-                a[16] = bc1 ^ (bc3 &~ bc2);
-                a[7] = bc2 ^ (bc4 &~ bc3);
-                a[23] = bc3 ^ (bc0 &~ bc4);
-                a[14] = bc4 ^ (bc1 &~ bc0);
+                a[0] = bc0 ^ (bc2 & ~bc1) ^ KeccakRoundConstants[i + 1];
+                a[16] = bc1 ^ (bc3 & ~bc2);
+                a[7] = bc2 ^ (bc4 & ~bc3);
+                a[23] = bc3 ^ (bc0 & ~bc4);
+                a[14] = bc4 ^ (bc1 & ~bc0);
 
                 t = a[20] ^ d0;
                 bc2 = (t << 3) | (t >> 61);
@@ -212,11 +212,11 @@ namespace Keccak256
                 bc0 = (t << 28) | (t >> 36);
                 t = a[9] ^ d4;
                 bc1 = (t << 20) | (t >> 44);
-                a[20] = bc0 ^ (bc2 &~ bc1);
-                a[11] = bc1 ^ (bc3 &~ bc2);
-                a[2] = bc2 ^ (bc4 &~ bc3);
-                a[18] = bc3 ^ (bc0 &~ bc4);
-                a[9] = bc4 ^ (bc1 &~ bc0);
+                a[20] = bc0 ^ (bc2 & ~bc1);
+                a[11] = bc1 ^ (bc3 & ~bc2);
+                a[2] = bc2 ^ (bc4 & ~bc3);
+                a[18] = bc3 ^ (bc0 & ~bc4);
+                a[9] = bc4 ^ (bc1 & ~bc0);
 
                 t = a[15] ^ d0;
                 bc4 = (t << 18) | (t >> 46);
@@ -228,11 +228,11 @@ namespace Keccak256
                 bc2 = (t << 25) | (t >> 39);
                 t = a[4] ^ d4;
                 bc3 = (t << 8) | (t >> 56);
-                a[15] = bc0 ^ (bc2 &~ bc1);
-                a[6] = bc1 ^ (bc3 &~ bc2);
-                a[22] = bc2 ^ (bc4 &~ bc3);
-                a[13] = bc3 ^ (bc0 &~ bc4);
-                a[4] = bc4 ^ (bc1 &~ bc0);
+                a[15] = bc0 ^ (bc2 & ~bc1);
+                a[6] = bc1 ^ (bc3 & ~bc2);
+                a[22] = bc2 ^ (bc4 & ~bc3);
+                a[13] = bc3 ^ (bc0 & ~bc4);
+                a[4] = bc4 ^ (bc1 & ~bc0);
 
                 t = a[10] ^ d0;
                 bc1 = (t << 36) | (t >> 28);
@@ -244,11 +244,11 @@ namespace Keccak256
                 bc4 = (t << 56) | (t >> 8);
                 t = a[24] ^ d4;
                 bc0 = (t << 27) | (t >> 37);
-                a[10] = bc0 ^ (bc2 &~ bc1);
-                a[1] = bc1 ^ (bc3 &~ bc2);
-                a[17] = bc2 ^ (bc4 &~ bc3);
-                a[8] = bc3 ^ (bc0 &~ bc4);
-                a[24] = bc4 ^ (bc1 &~ bc0);
+                a[10] = bc0 ^ (bc2 & ~bc1);
+                a[1] = bc1 ^ (bc3 & ~bc2);
+                a[17] = bc2 ^ (bc4 & ~bc3);
+                a[8] = bc3 ^ (bc0 & ~bc4);
+                a[24] = bc4 ^ (bc1 & ~bc0);
 
                 t = a[5] ^ d0;
                 bc3 = (t << 41) | (t >> 23);
@@ -260,11 +260,11 @@ namespace Keccak256
                 bc1 = (t << 55) | (t >> 9);
                 t = a[19] ^ d4;
                 bc2 = (t << 39) | (t >> 25);
-                a[5] = bc0 ^ (bc2 &~ bc1);
-                a[21] = bc1 ^ (bc3 &~ bc2);
-                a[12] = bc2 ^ (bc4 &~ bc3);
-                a[3] = bc3 ^ (bc0 &~ bc4);
-                a[19] = bc4 ^ (bc1 &~ bc0);
+                a[5] = bc0 ^ (bc2 & ~bc1);
+                a[21] = bc1 ^ (bc3 & ~bc2);
+                a[12] = bc2 ^ (bc4 & ~bc3);
+                a[3] = bc3 ^ (bc0 & ~bc4);
+                a[19] = bc4 ^ (bc1 & ~bc0);
 
                 // Round 3
                 bc0 = a[0] ^ a[5] ^ a[10] ^ a[15] ^ a[20];
@@ -287,11 +287,11 @@ namespace Keccak256
                 bc3 = (t << 21) | (t >> 43);
                 t = a[19] ^ d4;
                 bc4 = (t << 14) | (t >> 50);
-                a[0] = bc0 ^ (bc2 &~ bc1) ^ KeccakRoundConstants[i + 2];
-                a[11] = bc1 ^ (bc3 &~ bc2);
-                a[22] = bc2 ^ (bc4 &~ bc3);
-                a[8] = bc3 ^ (bc0 &~ bc4);
-                a[19] = bc4 ^ (bc1 &~ bc0);
+                a[0] = bc0 ^ (bc2 & ~bc1) ^ KeccakRoundConstants[i + 2];
+                a[11] = bc1 ^ (bc3 & ~bc2);
+                a[22] = bc2 ^ (bc4 & ~bc3);
+                a[8] = bc3 ^ (bc0 & ~bc4);
+                a[19] = bc4 ^ (bc1 & ~bc0);
 
                 t = a[15] ^ d0;
                 bc2 = (t << 3) | (t >> 61);
@@ -303,11 +303,11 @@ namespace Keccak256
                 bc0 = (t << 28) | (t >> 36);
                 t = a[9] ^ d4;
                 bc1 = (t << 20) | (t >> 44);
-                a[15] = bc0 ^ (bc2 &~ bc1);
-                a[1] = bc1 ^ (bc3 &~ bc2);
-                a[12] = bc2 ^ (bc4 &~ bc3);
-                a[23] = bc3 ^ (bc0 &~ bc4);
-                a[9] = bc4 ^ (bc1 &~ bc0);
+                a[15] = bc0 ^ (bc2 & ~bc1);
+                a[1] = bc1 ^ (bc3 & ~bc2);
+                a[12] = bc2 ^ (bc4 & ~bc3);
+                a[23] = bc3 ^ (bc0 & ~bc4);
+                a[9] = bc4 ^ (bc1 & ~bc0);
 
                 t = a[5] ^ d0;
                 bc4 = (t << 18) | (t >> 46);
@@ -319,11 +319,11 @@ namespace Keccak256
                 bc2 = (t << 25) | (t >> 39);
                 t = a[24] ^ d4;
                 bc3 = (t << 8) | (t >> 56);
-                a[5] = bc0 ^ (bc2 &~ bc1);
-                a[16] = bc1 ^ (bc3 &~ bc2);
-                a[2] = bc2 ^ (bc4 &~ bc3);
-                a[13] = bc3 ^ (bc0 &~ bc4);
-                a[24] = bc4 ^ (bc1 &~ bc0);
+                a[5] = bc0 ^ (bc2 & ~bc1);
+                a[16] = bc1 ^ (bc3 & ~bc2);
+                a[2] = bc2 ^ (bc4 & ~bc3);
+                a[13] = bc3 ^ (bc0 & ~bc4);
+                a[24] = bc4 ^ (bc1 & ~bc0);
 
                 t = a[20] ^ d0;
                 bc1 = (t << 36) | (t >> 28);
@@ -335,11 +335,11 @@ namespace Keccak256
                 bc4 = (t << 56) | (t >> 8);
                 t = a[14] ^ d4;
                 bc0 = (t << 27) | (t >> 37);
-                a[20] = bc0 ^ (bc2 &~ bc1);
-                a[6] = bc1 ^ (bc3 &~ bc2);
-                a[17] = bc2 ^ (bc4 &~ bc3);
-                a[3] = bc3 ^ (bc0 &~ bc4);
-                a[14] = bc4 ^ (bc1 &~ bc0);
+                a[20] = bc0 ^ (bc2 & ~bc1);
+                a[6] = bc1 ^ (bc3 & ~bc2);
+                a[17] = bc2 ^ (bc4 & ~bc3);
+                a[3] = bc3 ^ (bc0 & ~bc4);
+                a[14] = bc4 ^ (bc1 & ~bc0);
 
                 t = a[10] ^ d0;
                 bc3 = (t << 41) | (t >> 23);
@@ -351,11 +351,11 @@ namespace Keccak256
                 bc1 = (t << 55) | (t >> 9);
                 t = a[4] ^ d4;
                 bc2 = (t << 39) | (t >> 25);
-                a[10] = bc0 ^ (bc2 &~ bc1);
-                a[21] = bc1 ^ (bc3 &~ bc2);
-                a[7] = bc2 ^ (bc4 &~ bc3);
-                a[18] = bc3 ^ (bc0 &~ bc4);
-                a[4] = bc4 ^ (bc1 &~ bc0);
+                a[10] = bc0 ^ (bc2 & ~bc1);
+                a[21] = bc1 ^ (bc3 & ~bc2);
+                a[7] = bc2 ^ (bc4 & ~bc3);
+                a[18] = bc3 ^ (bc0 & ~bc4);
+                a[4] = bc4 ^ (bc1 & ~bc0);
 
                 // Round 4
                 bc0 = a[0] ^ a[5] ^ a[10] ^ a[15] ^ a[20];
@@ -378,11 +378,11 @@ namespace Keccak256
                 bc3 = (t << 21) | (t >> 43);
                 t = a[4] ^ d4;
                 bc4 = (t << 14) | (t >> 50);
-                a[0] = bc0 ^ (bc2 &~ bc1) ^ KeccakRoundConstants[i + 3];
-                a[1] = bc1 ^ (bc3 &~ bc2);
-                a[2] = bc2 ^ (bc4 &~ bc3);
-                a[3] = bc3 ^ (bc0 &~ bc4);
-                a[4] = bc4 ^ (bc1 &~ bc0);
+                a[0] = bc0 ^ (bc2 & ~bc1) ^ KeccakRoundConstants[i + 3];
+                a[1] = bc1 ^ (bc3 & ~bc2);
+                a[2] = bc2 ^ (bc4 & ~bc3);
+                a[3] = bc3 ^ (bc0 & ~bc4);
+                a[4] = bc4 ^ (bc1 & ~bc0);
 
                 t = a[5] ^ d0;
                 bc2 = (t << 3) | (t >> 61);
@@ -394,11 +394,11 @@ namespace Keccak256
                 bc0 = (t << 28) | (t >> 36);
                 t = a[9] ^ d4;
                 bc1 = (t << 20) | (t >> 44);
-                a[5] = bc0 ^ (bc2 &~ bc1);
-                a[6] = bc1 ^ (bc3 &~ bc2);
-                a[7] = bc2 ^ (bc4 &~ bc3);
-                a[8] = bc3 ^ (bc0 &~ bc4);
-                a[9] = bc4 ^ (bc1 &~ bc0);
+                a[5] = bc0 ^ (bc2 & ~bc1);
+                a[6] = bc1 ^ (bc3 & ~bc2);
+                a[7] = bc2 ^ (bc4 & ~bc3);
+                a[8] = bc3 ^ (bc0 & ~bc4);
+                a[9] = bc4 ^ (bc1 & ~bc0);
 
                 t = a[10] ^ d0;
                 bc4 = (t << 18) | (t >> 46);
@@ -410,11 +410,11 @@ namespace Keccak256
                 bc2 = (t << 25) | (t >> 39);
                 t = a[14] ^ d4;
                 bc3 = (t << 8) | (t >> 56);
-                a[10] = bc0 ^ (bc2 &~ bc1);
-                a[11] = bc1 ^ (bc3 &~ bc2);
-                a[12] = bc2 ^ (bc4 &~ bc3);
-                a[13] = bc3 ^ (bc0 &~ bc4);
-                a[14] = bc4 ^ (bc1 &~ bc0);
+                a[10] = bc0 ^ (bc2 & ~bc1);
+                a[11] = bc1 ^ (bc3 & ~bc2);
+                a[12] = bc2 ^ (bc4 & ~bc3);
+                a[13] = bc3 ^ (bc0 & ~bc4);
+                a[14] = bc4 ^ (bc1 & ~bc0);
 
                 t = a[15] ^ d0;
                 bc1 = (t << 36) | (t >> 28);
@@ -426,11 +426,11 @@ namespace Keccak256
                 bc4 = (t << 56) | (t >> 8);
                 t = a[19] ^ d4;
                 bc0 = (t << 27) | (t >> 37);
-                a[15] = bc0 ^ (bc2 &~ bc1);
-                a[16] = bc1 ^ (bc3 &~ bc2);
-                a[17] = bc2 ^ (bc4 &~ bc3);
-                a[18] = bc3 ^ (bc0 &~ bc4);
-                a[19] = bc4 ^ (bc1 &~ bc0);
+                a[15] = bc0 ^ (bc2 & ~bc1);
+                a[16] = bc1 ^ (bc3 & ~bc2);
+                a[17] = bc2 ^ (bc4 & ~bc3);
+                a[18] = bc3 ^ (bc0 & ~bc4);
+                a[19] = bc4 ^ (bc1 & ~bc0);
 
                 t = a[20] ^ d0;
                 bc3 = (t << 41) | (t >> 23);
@@ -442,11 +442,11 @@ namespace Keccak256
                 bc1 = (t << 55) | (t >> 9);
                 t = a[24] ^ d4;
                 bc2 = (t << 39) | (t >> 25);
-                a[20] = bc0 ^ (bc2 &~ bc1);
-                a[21] = bc1 ^ (bc3 &~ bc2);
-                a[22] = bc2 ^ (bc4 &~ bc3);
-                a[23] = bc3 ^ (bc0 &~ bc4);
-                a[24] = bc4 ^ (bc1 &~ bc0);
+                a[20] = bc0 ^ (bc2 & ~bc1);
+                a[21] = bc1 ^ (bc3 & ~bc2);
+                a[22] = bc2 ^ (bc4 & ~bc3);
+                a[23] = bc3 ^ (bc0 & ~bc4);
+                a[24] = bc4 ^ (bc1 & ~bc0);
             }
 
             return a;

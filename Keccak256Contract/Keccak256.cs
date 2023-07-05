@@ -98,22 +98,22 @@ namespace Keccak256
                 bc2 = a[2] ^ a[7] ^ a[12] ^ a[17] ^ a[22];
                 bc3 = a[3] ^ a[8] ^ a[13] ^ a[18] ^ a[23];
                 bc4 = a[4] ^ a[9] ^ a[14] ^ a[19] ^ a[24];
-                d0 = bc4 ^ ((bc1 << 1) | (bc1 >> 63));
-                d1 = bc0 ^ ((bc2 << 1) | (bc2 >> 63));
-                d2 = bc1 ^ ((bc3 << 1) | (bc3 >> 63));
-                d3 = bc2 ^ ((bc4 << 1) | (bc4 >> 63));
-                d4 = bc3 ^ ((bc0 << 1) | (bc0 >> 63));
+                d0 = bc4 ^ (LeftRotate(bc1, 1) | (bc1 >> 63));
+                d1 = bc0 ^ (LeftRotate(bc2, 1) | (bc2 >> 63));
+                d2 = bc1 ^ (LeftRotate(bc3, 1) | (bc3 >> 63));
+                d3 = bc2 ^ (LeftRotate(bc4, 1) | (bc4 >> 63));
+                d4 = bc3 ^ (LeftRotate(bc0, 1) | (bc0 >> 63));
                 onFault("R1 init", bc0, bc1, bc2, bc3, bc4, d0, d1, d2, d3, d4);
 
                 bc0 = a[0] ^ d0;
                 t = a[6] ^ d1;
-                bc1 = (t << 44) | (t >> 20);
+                bc1 = LeftRotate(t, 44) | (t >> 20);
                 t = a[12] ^ d2;
-                bc2 = (t << 43) | (t >> 21);
+                bc2 = LeftRotate(t, 43) | (t >> 21);
                 t = a[18] ^ d3;
-                bc3 = (t << 21) | (t >> 43);
+                bc3 = LeftRotate(t, 21) | (t >> 43);
                 t = a[24] ^ d4;
-                bc4 = (t << 14) | (t >> 50);
+                bc4 = LeftRotate(t, 14) | (t >> 50);
                 a[0] = bc0 ^ (bc2 & ~bc1) ^ KeccakRoundConstants[i];
                 a[6] = bc1 ^ (bc3 & ~bc2);
                 a[12] = bc2 ^ (bc4 & ~bc3);
@@ -122,15 +122,15 @@ namespace Keccak256
                 onFault("R1 0", bc0, bc1, bc2, bc3, bc4, d0, d1, d2, d3, d4, t);
 
                 t = a[10] ^ d0;
-                bc2 = (t << 3) | (t >> 61);
+                bc2 = LeftRotate(t, 3) | (t >> 61);
                 t = a[16] ^ d1;
-                bc3 = (t << 45) | (t >> 19);
+                bc3 = LeftRotate(t, 45) | (t >> 19);
                 t = a[22] ^ d2;
-                bc4 = (t << 61) | (t >> 3);
+                bc4 = LeftRotate(t, 61) | (t >> 3);
                 t = a[3] ^ d3;
-                bc0 = (t << 28) | (t >> 36);
+                bc0 = LeftRotate(t, 28) | (t >> 36);
                 t = a[9] ^ d4;
-                bc1 = (t << 20) | (t >> 44);
+                bc1 = LeftRotate(t, 20) | (t >> 44);
                 a[10] = bc0 ^ (bc2 & ~bc1);
                 a[16] = bc1 ^ (bc3 & ~bc2);
                 a[22] = bc2 ^ (bc4 & ~bc3);
@@ -139,15 +139,15 @@ namespace Keccak256
                 onFault("R1 1", bc0, bc1, bc2, bc3, bc4, d0, d1, d2, d3, d4, t);
 
                 t = a[20] ^ d0;
-                bc4 = (t << 18) | (t >> 46);
+                bc4 = LeftRotate(t, 18) | (t >> 46);
                 t = a[1] ^ d1;
-                bc0 = (t << 1) | (t >> 63);
+                bc0 = LeftRotate(t, 1) | (t >> 63);
                 t = a[7] ^ d2;
-                bc1 = (t << 6) | (t >> 58);
+                bc1 = LeftRotate(t, 6) | (t >> 58);
                 t = a[13] ^ d3;
-                bc2 = (t << 25) | (t >> 39);
+                bc2 = LeftRotate(t, 25) | (t >> 39);
                 t = a[19] ^ d4;
-                bc3 = (t << 8) | (t >> 56);
+                bc3 = LeftRotate(t, 8) | (t >> 56);
                 a[20] = bc0 ^ (bc2 & ~bc1);
                 a[1] = bc1 ^ (bc3 & ~bc2);
                 a[7] = bc2 ^ (bc4 & ~bc3);
@@ -156,15 +156,15 @@ namespace Keccak256
                 onFault("R1 2", bc0, bc1, bc2, bc3, bc4, d0, d1, d2, d3, d4, t);
 
                 t = a[5] ^ d0;
-                bc1 = (t << 36) | (t >> 28);
+                bc1 = LeftRotate(t, 36) | (t >> 28);
                 t = a[11] ^ d1;
-                bc2 = (t << 10) | (t >> 54);
+                bc2 = LeftRotate(t, 10) | (t >> 54);
                 t = a[17] ^ d2;
-                bc3 = (t << 15) | (t >> 49);
+                bc3 = LeftRotate(t, 15) | (t >> 49);
                 t = a[23] ^ d3;
-                bc4 = (t << 56) | (t >> 8);
+                bc4 = LeftRotate(t, 56) | (t >> 8);
                 t = a[4] ^ d4;
-                bc0 = (t << 27) | (t >> 37);
+                bc0 = LeftRotate(t, 27) | (t >> 37);
                 a[5] = bc0 ^ (bc2 & ~bc1);
                 a[11] = bc1 ^ (bc3 & ~bc2);
                 a[17] = bc2 ^ (bc4 & ~bc3);
@@ -173,15 +173,15 @@ namespace Keccak256
                 onFault("R1 3", bc0, bc1, bc2, bc3, bc4, d0, d1, d2, d3, d4, t);
 
                 t = a[15] ^ d0;
-                bc3 = (t << 41) | (t >> 23);
+                bc3 = LeftRotate(t, 41) | (t >> 23);
                 t = a[21] ^ d1;
-                bc4 = (t << 2) | (t >> 62);
+                bc4 = LeftRotate(t, 2) | (t >> 62);
                 t = a[2] ^ d2;
-                bc0 = (t << 62) | (t >> 2);
+                bc0 = LeftRotate(t, 62) | (t >> 2);
                 t = a[8] ^ d3;
-                bc1 = (t << 55) | (t >> 9);
+                bc1 = LeftRotate(t, 55) | (t >> 9);
                 t = a[14] ^ d4;
-                bc2 = (t << 39) | (t >> 25);
+                bc2 = LeftRotate(t, 39) | (t >> 25);
                 a[15] = bc0 ^ (bc2 & ~bc1);
                 a[21] = bc1 ^ (bc3 & ~bc2);
                 a[2] = bc2 ^ (bc4 & ~bc3);
@@ -195,21 +195,21 @@ namespace Keccak256
                 bc2 = a[2] ^ a[7] ^ a[12] ^ a[17] ^ a[22];
                 bc3 = a[3] ^ a[8] ^ a[13] ^ a[18] ^ a[23];
                 bc4 = a[4] ^ a[9] ^ a[14] ^ a[19] ^ a[24];
-                d0 = bc4 ^ ((bc1 << 1) | (bc1 >> 63));
-                d1 = bc0 ^ ((bc2 << 1) | (bc2 >> 63));
-                d2 = bc1 ^ ((bc3 << 1) | (bc3 >> 63));
-                d3 = bc2 ^ ((bc4 << 1) | (bc4 >> 63));
-                d4 = bc3 ^ ((bc0 << 1) | (bc0 >> 63));
+                d0 = bc4 ^ (LeftRotate(bc1, 1) | (bc1 >> 63));
+                d1 = bc0 ^ (LeftRotate(bc2, 1) | (bc2 >> 63));
+                d2 = bc1 ^ (LeftRotate(bc3, 1) | (bc3 >> 63));
+                d3 = bc2 ^ (LeftRotate(bc4, 1) | (bc4 >> 63));
+                d4 = bc3 ^ (LeftRotate(bc0, 1) | (bc0 >> 63));
 
                 bc0 = a[0] ^ d0;
                 t = a[16] ^ d1;
-                bc1 = (t << 44) | (t >> 20);
+                bc1 = LeftRotate(t, 44) | (t >> 20);
                 t = a[7] ^ d2;
-                bc2 = (t << 43) | (t >> 21);
+                bc2 = LeftRotate(t, 43) | (t >> 21);
                 t = a[23] ^ d3;
-                bc3 = (t << 21) | (t >> 43);
+                bc3 = LeftRotate(t, 21) | (t >> 43);
                 t = a[14] ^ d4;
-                bc4 = (t << 14) | (t >> 50);
+                bc4 = LeftRotate(t, 14) | (t >> 50);
                 a[0] = bc0 ^ (bc2 & ~bc1) ^ KeccakRoundConstants[i + 1];
                 a[16] = bc1 ^ (bc3 & ~bc2);
                 a[7] = bc2 ^ (bc4 & ~bc3);
@@ -217,15 +217,15 @@ namespace Keccak256
                 a[14] = bc4 ^ (bc1 & ~bc0);
 
                 t = a[20] ^ d0;
-                bc2 = (t << 3) | (t >> 61);
+                bc2 = LeftRotate(t, 3) | (t >> 61);
                 t = a[11] ^ d1;
-                bc3 = (t << 45) | (t >> 19);
+                bc3 = LeftRotate(t, 45) | (t >> 19);
                 t = a[2] ^ d2;
-                bc4 = (t << 61) | (t >> 3);
+                bc4 = LeftRotate(t, 61) | (t >> 3);
                 t = a[18] ^ d3;
-                bc0 = (t << 28) | (t >> 36);
+                bc0 = LeftRotate(t, 28) | (t >> 36);
                 t = a[9] ^ d4;
-                bc1 = (t << 20) | (t >> 44);
+                bc1 = LeftRotate(t, 20) | (t >> 44);
                 a[20] = bc0 ^ (bc2 & ~bc1);
                 a[11] = bc1 ^ (bc3 & ~bc2);
                 a[2] = bc2 ^ (bc4 & ~bc3);
@@ -233,15 +233,15 @@ namespace Keccak256
                 a[9] = bc4 ^ (bc1 & ~bc0);
 
                 t = a[15] ^ d0;
-                bc4 = (t << 18) | (t >> 46);
+                bc4 = LeftRotate(t, 18) | (t >> 46);
                 t = a[6] ^ d1;
-                bc0 = (t << 1) | (t >> 63);
+                bc0 = LeftRotate(t, 1) | (t >> 63);
                 t = a[22] ^ d2;
-                bc1 = (t << 6) | (t >> 58);
+                bc1 = LeftRotate(t, 6) | (t >> 58);
                 t = a[13] ^ d3;
-                bc2 = (t << 25) | (t >> 39);
+                bc2 = LeftRotate(t, 25) | (t >> 39);
                 t = a[4] ^ d4;
-                bc3 = (t << 8) | (t >> 56);
+                bc3 = LeftRotate(t, 8) | (t >> 56);
                 a[15] = bc0 ^ (bc2 & ~bc1);
                 a[6] = bc1 ^ (bc3 & ~bc2);
                 a[22] = bc2 ^ (bc4 & ~bc3);
@@ -249,15 +249,15 @@ namespace Keccak256
                 a[4] = bc4 ^ (bc1 & ~bc0);
 
                 t = a[10] ^ d0;
-                bc1 = (t << 36) | (t >> 28);
+                bc1 = LeftRotate(t, 36) | (t >> 28);
                 t = a[1] ^ d1;
-                bc2 = (t << 10) | (t >> 54);
+                bc2 = LeftRotate(t, 10) | (t >> 54);
                 t = a[17] ^ d2;
-                bc3 = (t << 15) | (t >> 49);
+                bc3 = LeftRotate(t, 15) | (t >> 49);
                 t = a[8] ^ d3;
-                bc4 = (t << 56) | (t >> 8);
+                bc4 = LeftRotate(t, 56) | (t >> 8);
                 t = a[24] ^ d4;
-                bc0 = (t << 27) | (t >> 37);
+                bc0 = LeftRotate(t, 27) | (t >> 37);
                 a[10] = bc0 ^ (bc2 & ~bc1);
                 a[1] = bc1 ^ (bc3 & ~bc2);
                 a[17] = bc2 ^ (bc4 & ~bc3);
@@ -265,15 +265,15 @@ namespace Keccak256
                 a[24] = bc4 ^ (bc1 & ~bc0);
 
                 t = a[5] ^ d0;
-                bc3 = (t << 41) | (t >> 23);
+                bc3 = LeftRotate(t, 41) | (t >> 23);
                 t = a[21] ^ d1;
-                bc4 = (t << 2) | (t >> 62);
+                bc4 = LeftRotate(t, 2) | (t >> 62);
                 t = a[12] ^ d2;
-                bc0 = (t << 62) | (t >> 2);
+                bc0 = LeftRotate(t, 62) | (t >> 2);
                 t = a[3] ^ d3;
-                bc1 = (t << 55) | (t >> 9);
+                bc1 = LeftRotate(t, 55) | (t >> 9);
                 t = a[19] ^ d4;
-                bc2 = (t << 39) | (t >> 25);
+                bc2 = LeftRotate(t, 39) | (t >> 25);
                 a[5] = bc0 ^ (bc2 & ~bc1);
                 a[21] = bc1 ^ (bc3 & ~bc2);
                 a[12] = bc2 ^ (bc4 & ~bc3);
@@ -286,21 +286,21 @@ namespace Keccak256
                 bc2 = a[2] ^ a[7] ^ a[12] ^ a[17] ^ a[22];
                 bc3 = a[3] ^ a[8] ^ a[13] ^ a[18] ^ a[23];
                 bc4 = a[4] ^ a[9] ^ a[14] ^ a[19] ^ a[24];
-                d0 = bc4 ^ ((bc1 << 1) | (bc1 >> 63));
-                d1 = bc0 ^ ((bc2 << 1) | (bc2 >> 63));
-                d2 = bc1 ^ ((bc3 << 1) | (bc3 >> 63));
-                d3 = bc2 ^ ((bc4 << 1) | (bc4 >> 63));
-                d4 = bc3 ^ ((bc0 << 1) | (bc0 >> 63));
+                d0 = bc4 ^ (LeftRotate(bc1, 1) | (bc1 >> 63));
+                d1 = bc0 ^ (LeftRotate(bc2, 1) | (bc2 >> 63));
+                d2 = bc1 ^ (LeftRotate(bc3, 1) | (bc3 >> 63));
+                d3 = bc2 ^ (LeftRotate(bc4, 1) | (bc4 >> 63));
+                d4 = bc3 ^ (LeftRotate(bc0, 1) | (bc0 >> 63));
 
                 bc0 = a[0] ^ d0;
                 t = a[11] ^ d1;
-                bc1 = (t << 44) | (t >> 20);
+                bc1 = LeftRotate(t, 44) | (t >> 20);
                 t = a[22] ^ d2;
-                bc2 = (t << 43) | (t >> 21);
+                bc2 = LeftRotate(t, 43) | (t >> 21);
                 t = a[8] ^ d3;
-                bc3 = (t << 21) | (t >> 43);
+                bc3 = LeftRotate(t, 21) | (t >> 43);
                 t = a[19] ^ d4;
-                bc4 = (t << 14) | (t >> 50);
+                bc4 = LeftRotate(t, 14) | (t >> 50);
                 a[0] = bc0 ^ (bc2 & ~bc1) ^ KeccakRoundConstants[i + 2];
                 a[11] = bc1 ^ (bc3 & ~bc2);
                 a[22] = bc2 ^ (bc4 & ~bc3);
@@ -308,15 +308,15 @@ namespace Keccak256
                 a[19] = bc4 ^ (bc1 & ~bc0);
 
                 t = a[15] ^ d0;
-                bc2 = (t << 3) | (t >> 61);
+                bc2 = LeftRotate(t, 3) | (t >> 61);
                 t = a[1] ^ d1;
-                bc3 = (t << 45) | (t >> 19);
+                bc3 = LeftRotate(t, 45) | (t >> 19);
                 t = a[12] ^ d2;
-                bc4 = (t << 61) | (t >> 3);
+                bc4 = LeftRotate(t, 61) | (t >> 3);
                 t = a[23] ^ d3;
-                bc0 = (t << 28) | (t >> 36);
+                bc0 = LeftRotate(t, 28) | (t >> 36);
                 t = a[9] ^ d4;
-                bc1 = (t << 20) | (t >> 44);
+                bc1 = LeftRotate(t, 20) | (t >> 44);
                 a[15] = bc0 ^ (bc2 & ~bc1);
                 a[1] = bc1 ^ (bc3 & ~bc2);
                 a[12] = bc2 ^ (bc4 & ~bc3);
@@ -324,15 +324,15 @@ namespace Keccak256
                 a[9] = bc4 ^ (bc1 & ~bc0);
 
                 t = a[5] ^ d0;
-                bc4 = (t << 18) | (t >> 46);
+                bc4 = LeftRotate(t, 18) | (t >> 46);
                 t = a[16] ^ d1;
-                bc0 = (t << 1) | (t >> 63);
+                bc0 = LeftRotate(t, 1) | (t >> 63);
                 t = a[2] ^ d2;
-                bc1 = (t << 6) | (t >> 58);
+                bc1 = LeftRotate(t, 6) | (t >> 58);
                 t = a[13] ^ d3;
-                bc2 = (t << 25) | (t >> 39);
+                bc2 = LeftRotate(t, 25) | (t >> 39);
                 t = a[24] ^ d4;
-                bc3 = (t << 8) | (t >> 56);
+                bc3 = LeftRotate(t, 8) | (t >> 56);
                 a[5] = bc0 ^ (bc2 & ~bc1);
                 a[16] = bc1 ^ (bc3 & ~bc2);
                 a[2] = bc2 ^ (bc4 & ~bc3);
@@ -340,15 +340,15 @@ namespace Keccak256
                 a[24] = bc4 ^ (bc1 & ~bc0);
 
                 t = a[20] ^ d0;
-                bc1 = (t << 36) | (t >> 28);
+                bc1 = LeftRotate(t, 36) | (t >> 28);
                 t = a[6] ^ d1;
-                bc2 = (t << 10) | (t >> 54);
+                bc2 = LeftRotate(t, 10) | (t >> 54);
                 t = a[17] ^ d2;
-                bc3 = (t << 15) | (t >> 49);
+                bc3 = LeftRotate(t, 15) | (t >> 49);
                 t = a[3] ^ d3;
-                bc4 = (t << 56) | (t >> 8);
+                bc4 = LeftRotate(t, 56) | (t >> 8);
                 t = a[14] ^ d4;
-                bc0 = (t << 27) | (t >> 37);
+                bc0 = LeftRotate(t, 27) | (t >> 37);
                 a[20] = bc0 ^ (bc2 & ~bc1);
                 a[6] = bc1 ^ (bc3 & ~bc2);
                 a[17] = bc2 ^ (bc4 & ~bc3);
@@ -356,15 +356,15 @@ namespace Keccak256
                 a[14] = bc4 ^ (bc1 & ~bc0);
 
                 t = a[10] ^ d0;
-                bc3 = (t << 41) | (t >> 23);
+                bc3 = LeftRotate(t, 41) | (t >> 23);
                 t = a[21] ^ d1;
-                bc4 = (t << 2) | (t >> 62);
+                bc4 = LeftRotate(t, 2) | (t >> 62);
                 t = a[7] ^ d2;
-                bc0 = (t << 62) | (t >> 2);
+                bc0 = LeftRotate(t, 62) | (t >> 2);
                 t = a[18] ^ d3;
-                bc1 = (t << 55) | (t >> 9);
+                bc1 = LeftRotate(t, 55) | (t >> 9);
                 t = a[4] ^ d4;
-                bc2 = (t << 39) | (t >> 25);
+                bc2 = LeftRotate(t, 39) | (t >> 25);
                 a[10] = bc0 ^ (bc2 & ~bc1);
                 a[21] = bc1 ^ (bc3 & ~bc2);
                 a[7] = bc2 ^ (bc4 & ~bc3);
@@ -377,21 +377,21 @@ namespace Keccak256
                 bc2 = a[2] ^ a[7] ^ a[12] ^ a[17] ^ a[22];
                 bc3 = a[3] ^ a[8] ^ a[13] ^ a[18] ^ a[23];
                 bc4 = a[4] ^ a[9] ^ a[14] ^ a[19] ^ a[24];
-                d0 = bc4 ^ ((bc1 << 1) | (bc1 >> 63));
-                d1 = bc0 ^ ((bc2 << 1) | (bc2 >> 63));
-                d2 = bc1 ^ ((bc3 << 1) | (bc3 >> 63));
-                d3 = bc2 ^ ((bc4 << 1) | (bc4 >> 63));
-                d4 = bc3 ^ ((bc0 << 1) | (bc0 >> 63));
+                d0 = bc4 ^ (LeftRotate(bc1, 1) | (bc1 >> 63));
+                d1 = bc0 ^ (LeftRotate(bc2, 1) | (bc2 >> 63));
+                d2 = bc1 ^ (LeftRotate(bc3, 1) | (bc3 >> 63));
+                d3 = bc2 ^ (LeftRotate(bc4, 1) | (bc4 >> 63));
+                d4 = bc3 ^ (LeftRotate(bc0, 1) | (bc0 >> 63));
 
                 bc0 = a[0] ^ d0;
                 t = a[1] ^ d1;
-                bc1 = (t << 44) | (t >> 20);
+                bc1 = LeftRotate(t, 44) | (t >> 20);
                 t = a[2] ^ d2;
-                bc2 = (t << 43) | (t >> 21);
+                bc2 = LeftRotate(t, 43) | (t >> 21);
                 t = a[3] ^ d3;
-                bc3 = (t << 21) | (t >> 43);
+                bc3 = LeftRotate(t, 21) | (t >> 43);
                 t = a[4] ^ d4;
-                bc4 = (t << 14) | (t >> 50);
+                bc4 = LeftRotate(t, 14) | (t >> 50);
                 a[0] = bc0 ^ (bc2 & ~bc1) ^ KeccakRoundConstants[i + 3];
                 a[1] = bc1 ^ (bc3 & ~bc2);
                 a[2] = bc2 ^ (bc4 & ~bc3);
@@ -399,15 +399,15 @@ namespace Keccak256
                 a[4] = bc4 ^ (bc1 & ~bc0);
 
                 t = a[5] ^ d0;
-                bc2 = (t << 3) | (t >> 61);
+                bc2 = LeftRotate(t, 3) | (t >> 61);
                 t = a[6] ^ d1;
-                bc3 = (t << 45) | (t >> 19);
+                bc3 = LeftRotate(t, 45) | (t >> 19);
                 t = a[7] ^ d2;
-                bc4 = (t << 61) | (t >> 3);
+                bc4 = LeftRotate(t, 61) | (t >> 3);
                 t = a[8] ^ d3;
-                bc0 = (t << 28) | (t >> 36);
+                bc0 = LeftRotate(t, 28) | (t >> 36);
                 t = a[9] ^ d4;
-                bc1 = (t << 20) | (t >> 44);
+                bc1 = LeftRotate(t, 20) | (t >> 44);
                 a[5] = bc0 ^ (bc2 & ~bc1);
                 a[6] = bc1 ^ (bc3 & ~bc2);
                 a[7] = bc2 ^ (bc4 & ~bc3);
@@ -415,15 +415,15 @@ namespace Keccak256
                 a[9] = bc4 ^ (bc1 & ~bc0);
 
                 t = a[10] ^ d0;
-                bc4 = (t << 18) | (t >> 46);
+                bc4 = LeftRotate(t, 18) | (t >> 46);
                 t = a[11] ^ d1;
-                bc0 = (t << 1) | (t >> 63);
+                bc0 = LeftRotate(t, 1) | (t >> 63);
                 t = a[12] ^ d2;
-                bc1 = (t << 6) | (t >> 58);
+                bc1 = LeftRotate(t, 6) | (t >> 58);
                 t = a[13] ^ d3;
-                bc2 = (t << 25) | (t >> 39);
+                bc2 = LeftRotate(t, 25) | (t >> 39);
                 t = a[14] ^ d4;
-                bc3 = (t << 8) | (t >> 56);
+                bc3 = LeftRotate(t, 8) | (t >> 56);
                 a[10] = bc0 ^ (bc2 & ~bc1);
                 a[11] = bc1 ^ (bc3 & ~bc2);
                 a[12] = bc2 ^ (bc4 & ~bc3);
@@ -431,15 +431,15 @@ namespace Keccak256
                 a[14] = bc4 ^ (bc1 & ~bc0);
 
                 t = a[15] ^ d0;
-                bc1 = (t << 36) | (t >> 28);
+                bc1 = LeftRotate(t, 36) | (t >> 28);
                 t = a[16] ^ d1;
-                bc2 = (t << 10) | (t >> 54);
+                bc2 = LeftRotate(t, 10) | (t >> 54);
                 t = a[17] ^ d2;
-                bc3 = (t << 15) | (t >> 49);
+                bc3 = LeftRotate(t, 15) | (t >> 49);
                 t = a[18] ^ d3;
-                bc4 = (t << 56) | (t >> 8);
+                bc4 = LeftRotate(t, 56) | (t >> 8);
                 t = a[19] ^ d4;
-                bc0 = (t << 27) | (t >> 37);
+                bc0 = LeftRotate(t, 27) | (t >> 37);
                 a[15] = bc0 ^ (bc2 & ~bc1);
                 a[16] = bc1 ^ (bc3 & ~bc2);
                 a[17] = bc2 ^ (bc4 & ~bc3);
@@ -447,15 +447,15 @@ namespace Keccak256
                 a[19] = bc4 ^ (bc1 & ~bc0);
 
                 t = a[20] ^ d0;
-                bc3 = (t << 41) | (t >> 23);
+                bc3 = LeftRotate(t, 41) | (t >> 23);
                 t = a[21] ^ d1;
-                bc4 = (t << 2) | (t >> 62);
+                bc4 = LeftRotate(t, 2) | (t >> 62);
                 t = a[22] ^ d2;
-                bc0 = (t << 62) | (t >> 2);
+                bc0 = LeftRotate(t, 62) | (t >> 2);
                 t = a[23] ^ d3;
-                bc1 = (t << 55) | (t >> 9);
+                bc1 = LeftRotate(t, 55) | (t >> 9);
                 t = a[24] ^ d4;
-                bc2 = (t << 39) | (t >> 25);
+                bc2 = LeftRotate(t, 39) | (t >> 25);
                 a[20] = bc0 ^ (bc2 & ~bc1);
                 a[21] = bc1 ^ (bc3 & ~bc2);
                 a[22] = bc2 ^ (bc4 & ~bc3);
@@ -499,6 +499,11 @@ namespace Keccak256
                 buf[i * 8 + 7] = (byte)(a[i] >> 56);
             }
             return buf;
+        }
+
+        private static UInt64 LeftRotate(UInt64 left, int right)
+        {
+            return left << right & UInt64.MaxValue;
         }
     }
 }

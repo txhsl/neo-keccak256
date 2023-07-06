@@ -63,8 +63,6 @@ byte[] Pad(byte[] input)
 
 ulong[] KeccakF1600(ulong[] a)
 {
-    Console.WriteLine("KeccakF1600: {0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12} {13} {14} {15} {16} {17} {18} {19} {20} {21} {22} {23} {24}",
-        a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8], a[9], a[10], a[11], a[12], a[13], a[14], a[15], a[16], a[17], a[18], a[19], a[20], a[21], a[22], a[23], a[24]);
     ulong t, bc0, bc1, bc2, bc3, bc4, d0, d1, d2, d3, d4;
 
     for (int i = 0; i < 24; i += 4)
@@ -80,7 +78,6 @@ ulong[] KeccakF1600(ulong[] a)
         d2 = bc1 ^ ((bc3 << 1) | (bc3 >> 63));
         d3 = bc2 ^ ((bc4 << 1) | (bc4 >> 63));
         d4 = bc3 ^ ((bc0 << 1) | (bc0 >> 63));
-        Console.WriteLine("R1 init: {0} {1} {2} {3} {4} {5} {6} {7} {8} {9}", bc0, bc1, bc2, bc3, bc4, d0, d1, d2, d3, d4);
 
         bc0 = a[0] ^ d0;
         t = a[6] ^ d1;
@@ -96,7 +93,6 @@ ulong[] KeccakF1600(ulong[] a)
         a[12] = bc2 ^ (bc4 & ~bc3);
         a[18] = bc3 ^ (bc0 & ~bc4);
         a[24] = bc4 ^ (bc1 & ~bc0);
-        Console.WriteLine("R1 0: {0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10}", bc0, bc1, bc2, bc3, bc4, d0, d1, d2, d3, d4, t);
 
         t = a[10] ^ d0;
         bc2 = (t << 3) | (t >> 61);
@@ -113,7 +109,6 @@ ulong[] KeccakF1600(ulong[] a)
         a[22] = bc2 ^ (bc4 & ~bc3);
         a[3] = bc3 ^ (bc0 & ~bc4);
         a[9] = bc4 ^ (bc1 & ~bc0);
-        Console.WriteLine("R1 1: {0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10}", bc0, bc1, bc2, bc3, bc4, d0, d1, d2, d3, d4, t);
 
         t = a[20] ^ d0;
         bc4 = (t << 18) | (t >> 46);
@@ -130,7 +125,6 @@ ulong[] KeccakF1600(ulong[] a)
         a[7] = bc2 ^ (bc4 & ~bc3);
         a[13] = bc3 ^ (bc0 & ~bc4);
         a[19] = bc4 ^ (bc1 & ~bc0);
-        Console.WriteLine("R1 2: {0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10}", bc0, bc1, bc2, bc3, bc4, d0, d1, d2, d3, d4, t);
 
         t = a[5] ^ d0;
         bc1 = (t << 36) | (t >> 28);
@@ -147,7 +141,6 @@ ulong[] KeccakF1600(ulong[] a)
         a[17] = bc2 ^ (bc4 & ~bc3);
         a[23] = bc3 ^ (bc0 & ~bc4);
         a[4] = bc4 ^ (bc1 & ~bc0);
-        Console.WriteLine("R1 3: {0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10}", bc0, bc1, bc2, bc3, bc4, d0, d1, d2, d3, d4, t);
 
         t = a[15] ^ d0;
         bc3 = (t << 41) | (t >> 23);
@@ -164,7 +157,6 @@ ulong[] KeccakF1600(ulong[] a)
         a[2] = bc2 ^ (bc4 & ~bc3);
         a[8] = bc3 ^ (bc0 & ~bc4);
         a[14] = bc4 ^ (bc1 & ~bc0);
-        Console.WriteLine("R1 4: {0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10}", bc0, bc1, bc2, bc3, bc4, d0, d1, d2, d3, d4, t);
 
         // Round 2
         bc0 = a[0] ^ a[5] ^ a[10] ^ a[15] ^ a[20];
@@ -455,24 +447,6 @@ ulong[] XorIn(ulong[] a, byte[] buf)
             | (ulong)buf[i * 8 + 5] << 40
             | (ulong)buf[i * 8 + 6] << 48
             | (ulong)buf[i * 8 + 7] << 56;
-
-        Console.WriteLine((ulong)buf[i * 8]);
-        Console.WriteLine((ulong)buf[i * 8 + 1]);
-        Console.WriteLine((ulong)buf[i * 8 + 2]);
-        Console.WriteLine((ulong)buf[i * 8 + 3]);
-        Console.WriteLine((ulong)buf[i * 8 + 4]);
-        Console.WriteLine((ulong)buf[i * 8 + 5]);
-        Console.WriteLine((ulong)buf[i * 8 + 6]);
-        Console.WriteLine((ulong)buf[i * 8 + 7]);
-
-        Console.WriteLine((ulong)buf[i * 8]);
-        Console.WriteLine((ulong)buf[i * 8 + 1] << 8);
-        Console.WriteLine((ulong)buf[i * 8 + 2] << 16);
-        Console.WriteLine((ulong)buf[i * 8 + 3] << 24);
-        Console.WriteLine((ulong)buf[i * 8 + 4] << 32);
-        Console.WriteLine((ulong)buf[i * 8 + 5] << 40);
-        Console.WriteLine((ulong)buf[i * 8 + 6] << 48);
-        Console.WriteLine((ulong)buf[i * 8 + 7] << 56);
     }
     return a;
 }

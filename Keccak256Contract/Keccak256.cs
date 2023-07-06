@@ -2,7 +2,6 @@
 using Neo.SmartContract.Framework.Attributes;
 using System;
 using System.ComponentModel;
-using System.Numerics;
 
 namespace Keccak256
 {
@@ -12,13 +11,6 @@ namespace Keccak256
     [ManifestExtra("Description", "This is a Keccak256")]
     public class Keccak256 : SmartContract
     {
-        /// <summary>
-        /// params: message, extend data
-        /// </summary>
-        [DisplayName("Fault")]
-        public static event FaultEvent onFault;
-        public delegate void FaultEvent(string message, params object[] paras);
-
         private static readonly UInt64[] KeccakRoundConstants =
         {
             0x0000000000000001UL, 0x0000000000008082UL, 0x800000000000808aUL, 0x8000000080008000UL,
@@ -36,11 +28,6 @@ namespace Keccak256
         public static byte[] ComputeHash(byte[] input)
         {
             return Squeeze(Absorb(input));
-        }
-
-        public static byte[] ComputeStringHash(string input)
-        {
-            return Squeeze(Absorb(input.ToByteArray()));
         }
 
         private static UInt64[] Absorb(byte[] input)
@@ -87,7 +74,6 @@ namespace Keccak256
 
         private static UInt64[] KeccakF1600(UInt64[] a)
         {
-            onFault("KeccakF1600", a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8], a[9], a[10], a[11], a[12], a[13], a[14], a[15], a[16], a[17], a[18], a[19], a[20], a[21], a[22], a[23], a[24]);
             UInt64 t, bc0, bc1, bc2, bc3, bc4, d0, d1, d2, d3, d4;
 
             for (int i = 0; i < 24; i += 4)
@@ -103,7 +89,6 @@ namespace Keccak256
                 d2 = bc1 ^ (LeftRotate(bc3, 1) | (bc3 >> 63));
                 d3 = bc2 ^ (LeftRotate(bc4, 1) | (bc4 >> 63));
                 d4 = bc3 ^ (LeftRotate(bc0, 1) | (bc0 >> 63));
-                onFault("R1 init", bc0, bc1, bc2, bc3, bc4, d0, d1, d2, d3, d4);
 
                 bc0 = a[0] ^ d0;
                 t = a[6] ^ d1;
@@ -119,7 +104,6 @@ namespace Keccak256
                 a[12] = bc2 ^ (bc4 & ~bc3);
                 a[18] = bc3 ^ (bc0 & ~bc4);
                 a[24] = bc4 ^ (bc1 & ~bc0);
-                onFault("R1 0", bc0, bc1, bc2, bc3, bc4, d0, d1, d2, d3, d4, t);
 
                 t = a[10] ^ d0;
                 bc2 = LeftRotate(t, 3) | (t >> 61);
@@ -136,7 +120,6 @@ namespace Keccak256
                 a[22] = bc2 ^ (bc4 & ~bc3);
                 a[3] = bc3 ^ (bc0 & ~bc4);
                 a[9] = bc4 ^ (bc1 & ~bc0);
-                onFault("R1 1", bc0, bc1, bc2, bc3, bc4, d0, d1, d2, d3, d4, t);
 
                 t = a[20] ^ d0;
                 bc4 = LeftRotate(t, 18) | (t >> 46);
@@ -153,7 +136,6 @@ namespace Keccak256
                 a[7] = bc2 ^ (bc4 & ~bc3);
                 a[13] = bc3 ^ (bc0 & ~bc4);
                 a[19] = bc4 ^ (bc1 & ~bc0);
-                onFault("R1 2", bc0, bc1, bc2, bc3, bc4, d0, d1, d2, d3, d4, t);
 
                 t = a[5] ^ d0;
                 bc1 = LeftRotate(t, 36) | (t >> 28);
@@ -170,7 +152,6 @@ namespace Keccak256
                 a[17] = bc2 ^ (bc4 & ~bc3);
                 a[23] = bc3 ^ (bc0 & ~bc4);
                 a[4] = bc4 ^ (bc1 & ~bc0);
-                onFault("R1 3", bc0, bc1, bc2, bc3, bc4, d0, d1, d2, d3, d4, t);
 
                 t = a[15] ^ d0;
                 bc3 = LeftRotate(t, 41) | (t >> 23);
@@ -187,7 +168,6 @@ namespace Keccak256
                 a[2] = bc2 ^ (bc4 & ~bc3);
                 a[8] = bc3 ^ (bc0 & ~bc4);
                 a[14] = bc4 ^ (bc1 & ~bc0);
-                onFault("R1 4", bc0, bc1, bc2, bc3, bc4, d0, d1, d2, d3, d4, t);
 
                 // Round 2
                 bc0 = a[0] ^ a[5] ^ a[10] ^ a[15] ^ a[20];
@@ -478,9 +458,6 @@ namespace Keccak256
                     | (UInt64)buf[i * 8 + 5] << 40
                     | (UInt64)buf[i * 8 + 6] << 48
                     | (UInt64)buf[i * 8 + 7] << 56;
-
-                onFault("buf", (UInt64)buf[i * 8], (UInt64)buf[i * 8 + 1], (UInt64)buf[i * 8 + 2], (UInt64)buf[i * 8 + 3], (UInt64)buf[i * 8 + 4], (UInt64)buf[i * 8 + 5], (UInt64)buf[i * 8 + 6], (UInt64)buf[i * 8 + 7]);
-                onFault("XorIn", (UInt64)buf[i * 8], (UInt64)buf[i * 8 + 1] << 8, (UInt64)buf[i * 8 + 2] << 16, (UInt64)buf[i * 8 + 3] << 24, (UInt64)buf[i * 8 + 4] << 32, (UInt64)buf[i * 8 + 5] << 40, (UInt64)buf[i * 8 + 6] << 48, (UInt64)buf[i * 8 + 7] << 56);
             }
             return a;
         }

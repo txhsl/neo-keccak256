@@ -30,6 +30,11 @@ namespace Keccak256
             return Squeeze(Absorb(input));
         }
 
+        public static string ComputeStringHash(string input)
+        {
+            return Squeeze(Absorb(input.ToByteArray())).ToByteString();
+        }
+
         private static UInt64[] Absorb(byte[] input)
         {
             int len = input.Length;
@@ -45,7 +50,7 @@ namespace Keccak256
                 else
                 {
                     // shorter than rate
-                    byte[] buf = input.Range(i, len - 1);
+                    byte[] buf = input.Range(i, len - i);
                     state = KeccakF1600(XorIn(state, Pad(buf)));
                 }
             }

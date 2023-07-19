@@ -6,8 +6,8 @@ using System.ComponentModel;
 namespace Keccak256
 {
     [DisplayName("Keccak256")]
-    [ManifestExtra("Author", "NEO")]
-    [ManifestExtra("Email", "developer@neo.org")]
+    [ManifestExtra("Author", "txhsl")]
+    [ManifestExtra("Email", "hushili@ngd.neo.org")]
     [ManifestExtra("Description", "This is a Keccak256")]
     public class Keccak256 : SmartContract
     {
@@ -25,11 +25,13 @@ namespace Keccak256
         private static readonly int Rate = 136;
         private static readonly byte Dsbyte = 0x01;
 
+        [Safe]
         public static byte[] ComputeHash(byte[] input)
         {
             return Squeeze(Absorb(input));
         }
 
+        [Safe]
         public static string ComputeStringHash(string input)
         {
             return Squeeze(Absorb(input.ToByteArray())).ToByteString();
